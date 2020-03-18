@@ -1,5 +1,5 @@
 package RPN.CALCUL;
 
 public interface OperationCommand {
-	public double apply(double operande_1, double operande_2);
+	public double eval(double operande_1, double operande_2);
 }
