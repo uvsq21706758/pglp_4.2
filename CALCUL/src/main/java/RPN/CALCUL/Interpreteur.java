@@ -8,13 +8,26 @@ public class Interpreteur {
 	private Map<String, Command> commands;
 	
 	private Interpreteur() {
-		commands = new HashMap<String, Command>();
-	}
-	public void undo() {
-		
+		this.commands = new HashMap<String, Command>();
 	}
 	
-	public void quit() {
-		System.exit(0);
+	public void addCommand(String name, Command command) {
+		this.commands.put(name, command);
+	}
+	public void executeCommand(final String name) throws Exception {
+		if(commands.containsKey(name)) {
+			
+				commands.get(name).apply();
+		}
+	}
+	
+	public static Interpreteur init() {
+	     Interpreteur itrp = new Interpreteur();
+			
+	     itrp.addCommand("undo", new Undo());
+	     itrp.addCommand("quit", new Quit());
+			
+			return itrp;
+			
 		}
 }
