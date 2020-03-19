@@ -14,7 +14,7 @@ public class Interpreteur {
 	public void addCommand(String name, Command command) {
 		this.commands.put(name, command);
 	}
-	public void executeCommand(final String name) throws Exception {
+	public void executeCommand( String name) {
 		if(commands.containsKey(name)) {
 			
 				commands.get(name).apply();
