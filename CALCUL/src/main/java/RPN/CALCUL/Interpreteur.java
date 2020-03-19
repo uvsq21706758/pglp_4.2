@@ -5,29 +5,29 @@ import java.util.Map;
 
 public class Interpreteur {
    
-	private Map<String, Command> commands;
+	private Map<String, Command> command;
 	
 	private Interpreteur() {
-		this.commands = new HashMap<String, Command>();
+		this.command = new HashMap<String, Command>();
 	}
 	
 	public void addCommand(String name, Command command) {
-		this.commands.put(name, command);
+		this.command.put(name, command);
 	}
 	public void executeCommand( String name) {
-		if(commands.containsKey(name)) {
+		if(command.containsKey(name)) {
 			
-				commands.get(name).apply();
+			command.get(name).apply();
 		}
 	}
 	
 	public static Interpreteur init(Undo undo) {
-	     Interpreteur itrp = new Interpreteur();
+	     Interpreteur interpreteur = new Interpreteur();
 			
-	     itrp.addCommand("undo", undo);
-	     itrp.addCommand("quit", new Quit());
+	     interpreteur.addCommand("undo", undo);
+	     interpreteur.addCommand("quit", new Quit());
 			
-			return itrp;
+			return interpreteur;
 			
 		}
 }
