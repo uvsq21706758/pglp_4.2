@@ -11,29 +11,18 @@ public class Undo implements Command{
 		this.pile = pile;
 		undo = new Stack<Stack<Double>>();
 	}
-	
-	public boolean canApply() {
-		return !undo.isEmpty();
-	}
-	
-	public void alertChange() {
-		@SuppressWarnings("unchecked")
-		Stack<Double> s = (Stack<Double>) pile.clone();
-		undo.push(s);
-	}
-	
-	private void copyLastStack() {
-		for (double d : undo.lastElement()) {
-			pile.push(d);
-		}
-	}
-	
 	public void apply() {
-		while (!pile.isEmpty()) {
-			pile.pop();
-		}
+	   while (!pile.isEmpty()) {
+			   pile.pop();
+	   }
 		undo.pop();
-		copyLastStack();
+		for (double db : undo.lastElement()) {
+			pile.push(db);
+		}
 	}
-
+	public void changewarning() {
+		@SuppressWarnings("unchecked")
+		Stack<Double> stack = (Stack<Double>) pile.clone();
+		undo.push(stack);
+	}
 }

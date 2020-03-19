@@ -1,16 +1,23 @@
 package RPN.CALCUL;
 
-/**
- * Hello world!
- *
- */
-public class CalculatriceRPN 
-{
-	private CalculatriceRPN() {
+public enum CalculatriceRPN {
+	
+	CALCUL(new SaisieRPN());
+	
+	private SaisieRPN saisierpn;
+	
+	CalculatriceRPN( SaisieRPN saisierpn)
+	{
+		this.saisierpn = saisierpn;
+	}
+	public void on() throws Exception
+	{
+		saisierpn.interUtilisateur();
 	}
 	
-    public static void main(final String[] args) throws Exception {
-        SaisieRPN saisie = new SaisieRPN();
-        saisie.calcul();
-    }
-    }
+	public static void main(String[] args) throws Exception {
+		
+		CalculatriceRPN.CALCUL.on();
+	}
+
+}

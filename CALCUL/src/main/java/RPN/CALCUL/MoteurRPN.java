@@ -9,59 +9,54 @@ public class MoteurRPN {
 	private Stack<Double> pile;
 	private Undo undo;
 	
-	private MoteurRPN(final Stack<Double> pile, final Undo undo) {
+	private MoteurRPN( Stack<Double> pile, Undo undo) {
 		operations = new HashMap<String, OperationCommand>();
 		this.pile = pile;
 		this.undo = undo;
 	}
 	
-	public void addOperande(double d) {
+	public void ajouterOperande(double d) {
 		pile.push(d);
-		undo.alertChange();
+		undo.changewarning();
 		
 	}
 	
 	public String toString() {
 		return pile.toString();
 	}
-	
-	public int size() {
-		return pile.size();
-	}
-	
-	public void addCommand(final String name, final OperationCommand command) {
+
+	public void addCommand(String name,OperationCommand command) {
 		this.operations.put(name, command);
 	}
 	
-	public boolean executeCommand(final String name) throws Exception {
+	public boolean executeCommand(String name) throws Exception {
 		if(operations.containsKey(name)) {
 			if(pile.size() < 2) {
-				System.err.println("nombre d'opérandes dans l'expression invalide");
+				System.err.println("nombre d'opérandes invalide,veuillez le rajouter");
 				return false;
 			}
-			double operande2 = pile.pop();
-			double operande1 = pile.pop();
+			double operande_1 = pile.pop();
+			double operande_2 = pile.pop();
 			try {
-				pile.push(operations.get(name).eval(operande1, operande2));
-				undo.alertChange();
+				pile.push(operations.get(name).eval(operande_1, operande_2));
 				return true;
 			} catch (Exception e) {
-				pile.push(operande1);
-				pile.push(operande2);
+				pile.push(operande_1);
+				pile.push(operande_2);
 				return false;
 			}
 		} else {
-			//commande inconnu
+
 			throw new Exception();
 		}
 	}
 	
-	public static MoteurRPN init(final Stack<Double> pile, final Undo u) {
-		MoteurRPN m = new MoteurRPN(pile, u);
-		m.addCommand("+", new Addition());
-		m.addCommand("-", new Soustraction());
-		m.addCommand("*", new Multiplication());
-		m.addCommand("/", new Division());
-		return m;
+	public static MoteurRPN init(Stack<Double> pile,Undo undo) {
+		MoteurRPN moteurrnp = new MoteurRPN(pile, undo);
+		moteurrnp.addCommand("+", new Addition());
+		moteurrnp.addCommand("-", new Soustraction());
+		moteurrnp.addCommand("*", new Multiplication());
+		moteurrnp.addCommand("/", new Division());
+		return moteurrnp;
 	}
 }

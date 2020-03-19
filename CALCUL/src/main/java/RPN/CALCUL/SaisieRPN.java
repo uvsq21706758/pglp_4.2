@@ -16,30 +16,26 @@ public class SaisieRPN {
 		interpreteur = Interpreteur.init(undo);
 	}
 	
-	public void calcul() throws Exception {
+	public void interUtilisateur() throws Exception {
 		Scanner scanner = new Scanner(System.in);
-		double d;
-		boolean continuer = true;
-		String line = "";
-		while(continuer) {
-			try { //récupérer un nombre
-				d = scanner.nextDouble();
-				moteur.addOperande(d);
+		double op;
+		String saisie = "";
+		while(!saisie.equals("quit")) {
+			try { 
+				 op = scanner.nextDouble();
+				moteur.ajouterOperande(op);
 			}
 			catch(java.util.InputMismatchException e) {
-				line = scanner.nextLine();
+				saisie = scanner.nextLine();
 				try {
-					moteur.executeCommand(line);
+					moteur.executeCommand(saisie);
 				} catch (Exception m) {
 					
-						interpreteur.executeCommand(line);
+						interpreteur.executeCommand(saisie);
 					
 				}
 			}
-			if(line.equalsIgnoreCase("quit")) {
-				continuer = false;
-			}
-			System.out.print("\n" + moteur + "\n>"); 
+			System.out.print( "\n"+moteur +"\n"); 
 		}
 		scanner.close();
 		
