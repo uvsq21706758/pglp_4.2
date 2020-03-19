@@ -21,10 +21,10 @@ public class Interpreteur {
 		}
 	}
 	
-	public static Interpreteur init() {
+	public static Interpreteur init(Undo undo) {
 	     Interpreteur itrp = new Interpreteur();
 			
-	     itrp.addCommand("undo", new Undo());
+	     itrp.addCommand("undo", undo);
 	     itrp.addCommand("quit", new Quit());
 			
 			return itrp;

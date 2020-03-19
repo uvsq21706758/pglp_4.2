@@ -2,26 +2,38 @@ package RPN.CALCUL;
 
 import java.util.Stack;
 
-public class Undo implements Command {
+public class Undo implements Command{
+
 	private Stack<Stack<Double>> undo;
 	private Stack<Double> pile;
 	
-	public Undo() {
-		pile = new Stack<Double>();
+	public Undo(final Stack<Double> pile) {
+		this.pile = pile;
 		undo = new Stack<Stack<Double>>();
 	}
-	private void suppDernierCmd() {
-		for (double p : undo.lastElement()) {
-			pile.push(p);
+	
+	public boolean canApply() {
+		return !undo.isEmpty();
+	}
+	
+	public void alertChange() {
+		@SuppressWarnings("unchecked")
+		Stack<Double> s = (Stack<Double>) pile.clone();
+		undo.push(s);
+	}
+	
+	private void copyLastStack() {
+		for (double d : undo.lastElement()) {
+			pile.push(d);
 		}
 	}
+	
 	public void apply() {
 		while (!pile.isEmpty()) {
 			pile.pop();
 		}
 		undo.pop();
-		suppDernierCmd();
+		copyLastStack();
 	}
-	
 
 }
