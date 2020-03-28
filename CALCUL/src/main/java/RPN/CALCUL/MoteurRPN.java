@@ -38,6 +38,8 @@ public class MoteurRPN {
 			double operande_1 = pile.pop();
 			double operande_2 = pile.pop();
 			try {
+				if(operande_2==0.0) {System.err.println("Erreur, division par zéro");
+				return false;}
 				pile.push(operations.get(name).eval(operande_1, operande_2));
 				return true;
 			} catch (Exception e) {
@@ -45,6 +47,7 @@ public class MoteurRPN {
 				pile.push(operande_2);
 				return false;
 			}
+			
 		} else {
 
 			throw new Exception();
