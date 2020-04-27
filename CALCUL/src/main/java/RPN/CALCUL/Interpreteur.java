@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Interpreteur {
    
-	private Map<String, Command> command;
+	Map<String, Command> command;
 	
-	private Interpreteur() {
+	Interpreteur() {
 		this.command = new HashMap<String, Command>();
 	}
 	

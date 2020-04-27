@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 public class MoteurRPN {
-	private Map<String, OperationCommand> operations;
+	Map<String, OperationCommand> operations;
 	private Stack<Double> pile;
 	private Undo undo;
 	
@@ -61,5 +61,6 @@ public class MoteurRPN {
 		moteurrnp.addCommand("*", new Multiplication());
 		moteurrnp.addCommand("/", new Division());
 		return moteurrnp;
-	}
+	
+}
 }
